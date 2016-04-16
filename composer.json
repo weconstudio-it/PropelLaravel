@@ -1,5 +1,5 @@
 {
-    "name": "propel/propel-laravel",
+    "name": "Snake231088/propel-laravel",
     "description": "Propel integration for Laravel framework.",
     "keywords": ["laravel", "laravel5", "propel", "propel2", "orm", "activerecord", "Active Record"],
     "type": "library",
