@@ -40,7 +40,7 @@ class RuntimeServiceProvider extends ServiceProvider
             $this->registerRuntimeConfiguration();
         }
 
-        if( 'propel' === \Config::get('auth.driver') ) {
+        if( 'propel' === \Config::get('auth.driver') || \Config::get('auth.providers.users.driver') ) {
             $this->registerPropelAuth();
         }
     }
@@ -122,7 +122,11 @@ class RuntimeServiceProvider extends ServiceProvider
                 throw new InvalidConfigurationException("Configuration directive «auth.user_query» must contain valid classpath of user Query. Excpected type: instanceof Propel\\Runtime\\ActiveQuery\\Criteria");
             }
         } else {
-            $user_class = \Config::get('auth.model');
+            if(!\Config::get('auth.model')) {
+				$user_class = \Config::get('auth.providers.users.model');
+			} else {
+				$user_class = \Config::get('auth.model');
+			}
             $query      = new $user_class;
 
             if ( ! method_exists($query, 'buildCriteria')) {
@@ -133,10 +137,9 @@ class RuntimeServiceProvider extends ServiceProvider
             $query->clear();
         }
 
-        \Auth::extend('propel', function(Application $app) use ($query)
-        {
-            return new Auth\PropelUserProvider($query, $app->make('hash'));
-        });
+		$this->app->make('auth')->provider('propel', function($app, $config) use($query) {
+			return new Auth\PropelUserProvider($query, $app->make('hash'));
+		});
     }
 
     /**
