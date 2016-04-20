@@ -1,5 +1,5 @@
 {
-    "name": "Snake231088/propel-laravel",
+    "name": "weconstudio-it/propel-laravel",
     "description": "Propel integration for Laravel framework.",
     "keywords": ["laravel", "laravel5", "propel", "propel2", "orm", "activerecord", "Active Record"],
     "type": "library",
