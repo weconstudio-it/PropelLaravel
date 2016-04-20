@@ -40,7 +40,7 @@ class RuntimeServiceProvider extends ServiceProvider
             $this->registerRuntimeConfiguration();
         }
 
-        if( 'propel' === \Config::get('auth.driver') || \Config::get('auth.providers.users.driver') ) {
+        if( 'propel' === \Config::get('auth.driver') || 'propel' === \Config::get('auth.providers.users.driver') ) {
             $this->registerPropelAuth();
         }
     }
